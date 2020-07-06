@@ -110,38 +110,15 @@ void* readWordsFromFile(void* arg){
     char* buffer =  (char *) malloc(chunk); // Each thread would allocated a buffer of size "chunk"
 
     off_t* bufferEnd = (off_t*) arg;   //get buffer end for each chunk
-<<<<<<< HEAD
-    printf("\nbufferEnd %ld.\n",*bufferEnd);
-    //int x = 1679774 + 2519661 + 839887;
-
-    off_t buffer_start = *bufferEnd - chunk; //get buffer start for each chunk
-    //printf("\nbuffer_start %lld.\n",buffer_start);
-
-    // lseek(fd, buffer_start, SEEK_SET);
-    pread(fd, buffer, chunk, buffer_start);
-    pthread_mutex_lock( &mutex1 );	//Starts the critical section
-    //code to scan chunk here
-
-=======
     off_t bufferStartOffset = *bufferEnd - chunk; //get buffer start for each chunk
     pread(fd, buffer, chunk, bufferStartOffset); // read from a file descriptor at a given offset
->>>>>>> 36d3f0997de34b40b41cb80eb514f64cc296d872
     char* token;
     while ((token = strtok_r(buffer , delim, &buffer))) {
         if (strlen(token) >= 6) { // The word is equals or larger than 6 char
             addingWords(token);
         }
     }
-<<<<<<< HEAD
-    //free(buffer);
-    pthread_mutex_unlock( &mutex1 );  //Ends the critical section
-    
-    //indicates end of thread and can be terminated
-    pthread_exit(0);
-   free(buffer);
-=======
     pthread_exit(NULL);    // End of thread
->>>>>>> 36d3f0997de34b40b41cb80eb514f64cc296d872
 }
 
 int main (int argc, char *argv[])
