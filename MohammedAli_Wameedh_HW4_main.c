@@ -94,7 +94,7 @@ void* readWordsFromFile(void* arg){
     //the limit to get the starting position of each chunk
 
     off_t* bufferEnd = (off_t*) arg;   //get buffer end for each chunk
-    printf("\nbufferEnd %lld.\n",*bufferEnd);
+    printf("\nbufferEnd %ld.\n",*bufferEnd);
     //int x = 1679774 + 2519661 + 839887;
 
     off_t buffer_start = *bufferEnd - chunk; //get buffer start for each chunk
@@ -126,12 +126,12 @@ void* readWordsFromFile(void* arg){
         }
 
     }
-    free(buffer);
+    //free(buffer);
     pthread_mutex_unlock( &mutex1 );  //Ends the critical section
-
+    
     //indicates end of thread and can be terminated
     pthread_exit(0);
-
+   free(buffer);
 }
 
 
